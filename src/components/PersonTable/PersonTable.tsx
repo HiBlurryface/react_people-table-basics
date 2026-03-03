@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Person } from '../../types';
 import { PersonLink } from '../PersonLink/PersonLink';
 
@@ -53,29 +53,20 @@ export const PersonTable: React.FC<Props> = ({ people }) => {
               <td>{item.sex}</td>
               <td>{item.born}</td>
               <td>{item.died}</td>
-
-              {item.mother ? (
-                <td>
-                  <Link
-                    className="has-text-danger"
-                    to={`/people/${item.mother.slug}`}
-                  >
-                    {item.motherName}
-                  </Link>
-                </td>
-              ) : (
-                <td>{!item.motherName ? '-' : item.motherName}</td>
-              )}
-
-              {item.father ? (
-                <td>
-                  <Link to={`/people/${item.father.slug}`}>
-                    {item.fatherName}
-                  </Link>
-                </td>
-              ) : (
-                <td>{!item.fatherName ? '-' : item.fatherName}</td>
-              )}
+              <td>
+                {item.mother ? (
+                  <PersonLink person={item.mother} />
+                ) : (
+                  <td>{!item.motherName ? '-' : item.motherName}</td>
+                )}
+              </td>
+              <td>
+                {item.father ? (
+                  <PersonLink person={item.father} />
+                ) : (
+                  <td>{!item.fatherName ? '-' : item.fatherName}</td>
+                )}
+              </td>
             </tr>
           );
         })}
